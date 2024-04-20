@@ -15,7 +15,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        dist: [corretto, oracle, temurin]
+        dist: [corretto, semeru, temurin]
         java: [8, 11, 17]
       fail-fast: false
       max-parallel: 27
@@ -43,7 +43,7 @@ jobs:
           mvn test -B --file pom.xml -"Drat.skip=true" -fn
         continue-on-error: true
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ github.ref_name }}_testresults-env-${{ github.event.repository.name }}-${{ matrix.os }}_${{ matrix.dist }}_${{ matrix.java }}-saflateoff-${{ github.event.inputs.runid }}
           path: ${{ github.workspace }}/**/*.xml
